@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_task/home/models/product.dart';
+import 'package:grocery_task/home/provider/cart_provider.dart';
+import 'package:grocery_task/home/provider/wishlist_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
     super.key,
     required this.product,
     required this.quantity,
-    required this.onAddToCart,
-    required this.onRemoveItem,
-    required this.toggleFavorite,
-    required this.isFavorite,
   });
 
   final Product product;
   final int quantity;
 
-  final VoidCallback onAddToCart;
-
-  final VoidCallback onRemoveItem;
-
-  final VoidCallback toggleFavorite;
-
-  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,11 +47,16 @@ class ProductItem extends StatelessWidget {
                 ),
               const Spacer(),
               IconButton(
-                onPressed: toggleFavorite,
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border_rounded,
-                  color: isFavorite ? Colors.red : null,
-                ),
+                onPressed: () {
+                  context.read<WishlistProvider>().toggleFavoriteList(product);
+                },
+                icon: Consumer<WishlistProvider>(builder: (context, model, child) {
+                  final isFavorite = model.wishlist.contains(product);
+                  return Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border_rounded,
+                    color: isFavorite ? Colors.red : null,
+                  );
+                }),
               ),
             ],
           ),
@@ -95,8 +92,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 Text(
                   product.name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Text(
                   product.description,
@@ -112,7 +108,7 @@ class ProductItem extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    onRemoveItem();
+                    context.read<CartProvider>().onRemoveItem(product);
                   },
                   icon: const Icon(Icons.remove),
                 ),
@@ -121,7 +117,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    onAddToCart();
+                    context.read<CartProvider>().onAddItem(product);
                   },
                   icon: const Icon(Icons.add),
                 ),
@@ -130,7 +126,7 @@ class ProductItem extends StatelessWidget {
           else
             TextButton(
               onPressed: () {
-                onAddToCart();
+                context.read<CartProvider>().onAddItem(product);
               },
               child: const Text('Add to cart'),
             ),

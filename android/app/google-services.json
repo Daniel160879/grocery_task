@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "989099078651",
+    "project_id": "einkaufs-app-9da01",
+    "storage_bucket": "einkaufs-app-9da01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989099078651:android:a84b993554c6d1ec87915e",
+        "android_client_info": {
+          "package_name": "com.example.grocery_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGpeiGreMUayGVxy45ozPcmMwDzewCBTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

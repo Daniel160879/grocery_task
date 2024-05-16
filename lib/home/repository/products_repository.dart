@@ -1,16 +1,19 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery_task/home/models/product.dart';
 
 class ProductsRepository {
-  Future<List<Product>> getProducts() async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    return productsMock;
+  Stream<List<Product>> getProductsStream() {
+    return FirebaseFirestore.instance.collection('products').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList();
+    });
   }
 
-  Future<Stream<List<Product>>> getProductsStream() async {
-    return Future.delayed(const Duration(seconds: 2))
-        .then((value) => Stream.value(productsMock));
+  Future<void> uploadProducts() async {
+    for (Product product in productsMock) {
+      await FirebaseFirestore.instance.collection('products').add(product.toJson());
+    }
   }
 }
 
