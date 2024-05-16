@@ -5,6 +5,7 @@ import 'package:grocery_task/home/provider/cart_provider.dart';
 import 'package:grocery_task/home/provider/categories_provider.dart';
 import 'package:grocery_task/home/provider/products_provider.dart';
 import 'package:grocery_task/home/provider/wishlist_provider.dart';
+import 'package:grocery_task/home/repository/cart_repository.dart';
 import 'package:grocery_task/home/repository/categories_repository.dart';
 import 'package:grocery_task/home/repository/products_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +21,7 @@ void main() async {
   );
   final prefs = await SharedPreferences.getInstance();
   Cart cart = Cart([]);
+  CartRepository cartRepository = CartRepository();
   WishlistRepository wishlistRepository = WishlistRepository();
   ProductsRepository productsRepository = ProductsRepository();
   CategoryRepository categoryRepository = CategoryRepository();
@@ -27,7 +29,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CartProvider(cart),
+          create: (context) => CartProvider(cartRepository, cart),
         ),
         ChangeNotifierProvider(
           create: (context) => WishlistProvider(wishlistRepository),

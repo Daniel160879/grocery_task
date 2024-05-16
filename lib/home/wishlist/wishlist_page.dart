@@ -26,7 +26,7 @@ class WishlistPage extends StatelessWidget {
             title: Text(product.name),
             trailing: IconButton(
               onPressed: () {
-                context.read<WishlistProvider>().toggleFavoriteList(product);
+                context.read<WishlistProvider>().deleteProduct(product);
               },
               icon: const Icon(Icons.delete),
             ),

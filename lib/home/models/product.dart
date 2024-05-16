@@ -3,6 +3,7 @@ import 'package:grocery_task/home/models/category.dart';
 import 'package:grocery_task/home/utils/colors.dart';
 
 class Product {
+  final String id;
   final String name;
   final String description;
   final double price;
@@ -15,6 +16,7 @@ class Product {
   final ProductBadge? badge;
 
   const Product({
+    required this.id,
     required this.name,
     required this.description,
     required this.price,
@@ -26,6 +28,7 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'description': description,
       'price': price,
@@ -38,6 +41,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      id: json['id'],
       name: json['name'],
       description: json['description'],
       price: double.parse((json['price'] as double).toString()),

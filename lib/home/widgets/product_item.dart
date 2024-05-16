@@ -51,7 +51,7 @@ class ProductItem extends StatelessWidget {
                   context.read<WishlistProvider>().toggleFavoriteList(product);
                 },
                 icon: Consumer<WishlistProvider>(builder: (context, model, child) {
-                  final isFavorite = model.wishlist.contains(product);
+                  final isFavorite = model.wishlist.any((element) => element.id == product.id);
                   return Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border_rounded,
                     color: isFavorite ? Colors.red : null,

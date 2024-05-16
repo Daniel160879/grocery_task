@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grocery_task/home/models/cart.dart';
-import 'package:grocery_task/home/models/product.dart';
 import 'package:grocery_task/home/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +24,19 @@ class _CardlistPageState extends State<CartlistPage> {
           const Center(
             child: Text('Your Cart is empty'),
           ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: cartProvider.cartList.length,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Center(
+                child: Text(cartProvider.cart.items[index].product.toString()),
+              ),
+              trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+            );
+          },
+        )
       ],
     );
   }

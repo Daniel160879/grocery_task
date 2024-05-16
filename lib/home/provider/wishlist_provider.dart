@@ -10,12 +10,15 @@ class WishlistProvider extends ChangeNotifier {
     _loadProductsToWishlist();
   }
 
+  void deleteProduct(Product product) {
+    wishlistRepository.deleteProductFromFirestore(product);
+    wishlist.remove(product);
+  }
+
   void toggleFavoriteList(Product product) {
-    if (wishlist.any((element) => element.name == product.name)) {
-      wishlistRepository.deleteProductFromFirestore(product);
-      notifyListeners();
-    } else {
+    if (!wishlist.any((element) => element.name == product.name)) {
       wishlistRepository.addProductToFirestore(product);
+      wishlist.add(product);
       notifyListeners();
     }
   }

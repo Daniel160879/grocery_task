@@ -6,7 +6,7 @@ import 'package:grocery_task/home/models/product.dart';
 class ProductsRepository {
   Stream<List<Product>> getProductsStream() {
     return FirebaseFirestore.instance.collection('products').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList();
+      return snapshot.docs.map((doc) => Product.fromJson(doc.data()..['id'] = doc.id)).toList();
     });
   }
 
@@ -19,6 +19,7 @@ class ProductsRepository {
 
 final List<Product> productsMock = [
   const Product(
+    id: '',
     name: 'Fresh Peach',
     description: 'dozen',
     price: 8.00,
@@ -28,6 +29,7 @@ final List<Product> productsMock = [
     ),
   ),
   const Product(
+    id: '',
     name: 'Avocado',
     description: '2.0 lbs',
     price: 7.00,
@@ -41,6 +43,7 @@ final List<Product> productsMock = [
     ),
   ),
   const Product(
+    id: '',
     name: 'Pineapple',
     description: '1.15 lbs',
     price: 9.90,
@@ -50,6 +53,7 @@ final List<Product> productsMock = [
     ),
   ),
   const Product(
+    id: '',
     name: 'Black grapes',
     description: '5 lbs',
     price: 7.05,
@@ -63,6 +67,7 @@ final List<Product> productsMock = [
     ),
   ),
   const Product(
+    id: '',
     name: 'Pomegranate',
     description: '1.50 lbs',
     price: 2.09,
@@ -76,6 +81,7 @@ final List<Product> productsMock = [
     ),
   ),
   const Product(
+    id: '',
     name: 'Fresh Broccoli',
     description: '3 lbs',
     price: 1,
